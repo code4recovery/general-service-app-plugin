@@ -1,0 +1,74 @@
+#general-service-app {
+  border: 2px dashed #ddd;
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  font-size: 1rem;
+  gap: 1rem;
+  margin: 1rem 0;
+  padding: 1.5rem;
+}
+
+#general-service-app h2 {
+  font-size: 1.75rem;
+  font-weight: bolder;
+  margin: 0.5rem 0;
+}
+
+#general-service-app article {
+  padding: 0 0 1rem 1rem;
+  position: relative;
+}
+
+#general-service-app article::before {
+  background-color: #ccc;
+  border-radius: 50%;
+  content: "";
+  height: 0.5rem;
+  left: 0;
+  position: absolute;
+  top: 0.5rem;
+  width: 0.5rem;
+}
+
+#general-service-app article h3 {
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+#general-service-app article p {
+  font-size: 1rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+#general-service-app article ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  list-style-type: none;
+  margin: 1rem 0 0;
+  padding: 0;
+}
+
+#general-service-app article li {
+  font-size: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+#general-service-app article a {
+  background-color: #ccc;
+  border-radius: 0.25rem;
+  border: 0;
+  color: inherit;
+  display: inline-block;
+  font-size: inherit;
+  padding: 5px 15px;
+  text-decoration: none;
+}
+
+#general-service-app article a:hover {
+  background-color: #666;
+  color: #fff;
+}
