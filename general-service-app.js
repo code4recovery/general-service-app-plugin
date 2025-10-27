@@ -23,6 +23,8 @@ const labels = {
   },
 };
 
+const languages = ["en", "es", "fr"];
+
 const now = new Date();
 
 fetch(`https://generalservice.app/storage/106.json`)
@@ -41,11 +43,11 @@ fetch(`https://generalservice.app/storage/106.json`)
     });
 
     // determine language
-    const languages = stories.map((story) => story.language);
-    const browserLanguage = navigator.language.substring(0, 2);
-    const language = languages.includes(browserLanguage)
-      ? browserLanguage
-      : "en";
+    const language = element.getAttribute("data-language");
+
+    if (!languages.includes(language)) {
+      throw new Error(`Unsupported language: ${language}`);
+    }
 
     const filteredStories = stories.filter((s) => s.language === language);
 
