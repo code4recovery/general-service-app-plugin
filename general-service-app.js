@@ -27,7 +27,13 @@ const languages = ["en", "es", "fr"];
 
 const now = new Date();
 
-fetch(`https://generalservice.app/storage/106.json`)
+const dev = window.location.origin.endsWith(".test");
+
+const host = dev ? "general-service-app-backend.test" : "generalservice.app";
+
+const url = `https://${host}/storage/106.json`;
+
+fetch(url)
   .then((response) => {
     if (!response.ok) {
       throw new Error("Network response was not ok");
