@@ -2,12 +2,12 @@
 /**
  * Plugin Name: General Service App
  * Description: Integrates with the A.A. General Service App.
- * Version: 1.0.3
  * Author: General Service App
  * Author URI: https://generalservice.app
+ * Version: 1.0.4
  */
 
-$version = '1.0.3';
+$version = '1.0.4';
 
 add_shortcode('general_service_app', function ($atts) use ($version) {
 

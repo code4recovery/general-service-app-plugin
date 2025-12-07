@@ -89,6 +89,8 @@ fetch(url)
           .join("")}`;
       })
       .join("");
+
+    element.classList.add("loaded");
   })
   .catch((error) => {
     console.error("Error fetching data:", error);
