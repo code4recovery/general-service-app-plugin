@@ -4,10 +4,10 @@
  * Description: Integrates with the A.A. General Service App.
  * Author: General Service App
  * Author URI: https://generalservice.app
- * Version: 1.0.4
+ * Version: 1.0.5
  */
 
-$version = '1.0.4';
+$version = '1.0.5';
 
 add_shortcode('general_service_app', function ($atts) use ($version) {
 
