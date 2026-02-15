@@ -63,7 +63,7 @@ fetch(url)
 
     element.innerHTML = types
       .filter(
-        (type) => filteredStories.filter((s) => s.type === type).length > 0
+        (type) => filteredStories.filter((s) => s.type === type).length > 0,
       )
       .map((type) => {
         return `<h2>${labels[type][language]}</h2>${filteredStories
@@ -73,18 +73,16 @@ fetch(url)
               story.description
             }</p>
             ${
-              story.buttons.filter((button) => button.type === "link").length >
-              0
+              story.buttons.length > 0
                 ? `<ul>${story.buttons
-                    .filter((button) => button.type === "link")
                     .map(
                       (button) =>
-                        `<li><a href="${button.link}" target="_blank" rel="noopener">${button.title}</a></li>`
+                        `<li><a href="${buttonLink(button)}" target="_blank" rel="noopener">${button.title}</a></li>`,
                     )
                     .join("")}</ul>`
                 : ""
             }
-            </article>`
+            </article>`,
           )
           .join("")}`;
       })
@@ -95,3 +93,28 @@ fetch(url)
   .catch((error) => {
     console.error("Error fetching data:", error);
   });
+
+function buttonLink(button) {
+  if (button.type === "link") {
+    return button.link;
+  }
+
+  // add to google calendar
+  const params = {
+    action: "TEMPLATE",
+    dates: [formatDate(button.start), formatDate(button.end)].join("/"),
+    text: button.event_title,
+    details: [button.conference_url, button.notes].filter(Boolean).join("\n"),
+    location: button.formatted_address,
+    trp: false,
+    ctz: button.timezone,
+    sprop: `website:${window.location.origin}`,
+  };
+
+  return `https://www.google.com/calendar/render?${new URLSearchParams(params).toString()}`;
+}
+
+function formatDate(dateString) {
+  const date = new Date(dateString);
+  return date.toISOString().replace(/[-:]/g, "").split(".")[0] + "Z";
+}
