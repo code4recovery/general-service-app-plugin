@@ -27,9 +27,7 @@ const languages = ["en", "es", "fr"];
 
 const now = new Date();
 
-const dev = window.location.origin.endsWith(".test");
-
-const host = dev ? "general-service-app-backend.test" : "generalservice.app";
+const host = "generalservice.app";
 
 const url = `https://${host}/storage/106.json`;
 

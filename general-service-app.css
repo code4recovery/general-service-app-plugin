@@ -1,15 +1,13 @@
 #general-service-app {
-  border: 3px dotted transparent;
   display: flex;
   flex-direction: column;
   font-size: 16px;
   gap: 16px;
-  padding: 24px;
+  min-height: 400px;
 }
 
 #general-service-app.loaded {
-  border-color: #1bb9c4;
-  box-shadow: 4px 3px 10px -2px rgba(0, 0, 0, 0.32);
+  min-height: auto;
 }
 
 #general-service-app h2 {
