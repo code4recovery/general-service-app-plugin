@@ -4,19 +4,32 @@
  * Description: Integrates with the A.A. General Service App.
  * Author: General Service App
  * Author URI: https://generalservice.app
- * Version: 1.0.7
+ * Version: 1.1
  */
 
-$version = '1.0.7';
+const GENERAL_SERVICE_APP_CRON = 'general_service_app_cron';
+const GENERAL_SERVICE_APP_LANGUAGES = ['en', 'es', 'fr'];
+const GENERAL_SERVICE_APP_NONCE = 'general_service_app_nonce';
+const GENERAL_SERVICE_APP_OPTIONS_KEY = 'general_service_app_options';
+const GENERAL_SERVICE_APP_SLUG = 'general-service-app-plugin';
+const GENERAL_SERVICE_APP_URL = 'https://generalservice.app';
+const GENERAL_SERVICE_APP_VERSION = '1.1';
 
-add_shortcode('general_service_app', function ($atts) use ($version) {
+require_once plugin_dir_path(__FILE__) . 'functions/refresh.php';
+require_once plugin_dir_path(__FILE__) . 'functions/save.php';
+require_once plugin_dir_path(__FILE__) . 'functions/settings.php';
+require_once plugin_dir_path(__FILE__) . 'functions/shortcode.php';
 
-    $atts = shortcode_atts([
-        'language' => 'en',
-    ], $atts);
-
-    wp_enqueue_script('general-service-app', plugins_url('general-service-app.js', __FILE__), [], $version);
-    wp_enqueue_style('general-service-app', plugins_url('general-service-app.css', __FILE__), [], $version);
-
-    return '<section id="general-service-app" data-language="' . esc_attr($atts['language']) . '"></section>';
+register_activation_hook(__FILE__, function () {
+    if (!wp_next_scheduled(GENERAL_SERVICE_APP_CRON, )) {
+        wp_schedule_event(time(), 'hourly', GENERAL_SERVICE_APP_CRON);
+    }
 });
+
+register_deactivation_hook(
+    __FILE__,
+    function () {
+        wp_clear_scheduled_hook(GENERAL_SERVICE_APP_CRON);
+    }
+);
+
