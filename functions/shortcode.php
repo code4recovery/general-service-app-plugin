@@ -28,9 +28,7 @@ add_shortcode('general_service_app', function ($atts) {
             fn($story) => '<article>
             <h3>' . $story['title'] . '</h3>' .
             implode('', array_map(fn($paragraph) => '<p>' . $paragraph . '</p>', explode("\n\n", $story['description'])))
-            . (is_array($story['buttons']) && count($story['buttons']) ? '<ul>' .
-                implode('', array_map(fn($button) => '<li><a href="' . $button['link'] . '" target="_blank" rel="noopener">' . $button['title'] . '</a></li>', $story['buttons'])) .
-                '</ul>' : '') . '
+            . general_service_app_buttons($story['buttons']) . '
             </article>',
             array_filter($option['stories'], fn($story) => $story['language'] === $language && $story['type'] === $key)
         );
@@ -44,3 +42,39 @@ add_shortcode('general_service_app', function ($atts) {
 
     return '<section id="general-service-app">' . $output . '</section>';
 });
+
+function general_service_app_buttons($buttons)
+{
+    if (!is_array($buttons) || !count($buttons)) {
+        return '';
+    }
+
+    $buttons = array_map(function ($button) {
+        if ($button['type'] === 'calendar') {
+            $format = 'Ymd\THis\Z';
+
+            $dates = array_map(
+                function ($date) use ($button, $format) {
+                    $date = new DateTime($date, new DateTimeZone($button['timezone']));
+                    return $date->setTimezone(new DateTimeZone('UTC'))->format($format);
+                },
+                [$button['start'], $button['end']]
+            );
+
+            $params = [
+                'action' => 'TEMPLATE',
+                'dates' => implode('/', $dates),
+                'text' => $button['event_title'],
+                'details' => implode("\n", array_filter([$button['conference_url'], $button['notes']])),
+                'location' => $button['formatted_address'],
+                'trp' => false,
+                'ctz' => $button['timezone'],
+                'sprop' => 'website:' . get_home_url(),
+            ];
+            $button['link'] = 'https://www.google.com/calendar/render?' . http_build_query($params);
+        }
+        return '<li><a href="' . $button['link'] . '" target="_blank" rel="noopener">' . $button['title'] . '</a></li>';
+    }, $buttons);
+
+    return '<ul>' . implode('', $buttons) . '</ul>';
+}

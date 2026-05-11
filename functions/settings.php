@@ -26,11 +26,15 @@ add_action('admin_menu', function () {
                 <p>To get started, please select an entity from the dropdown below:</p>
             <?php } else {
                     $time_diff = human_time_diff(strtotime($options['last_updated']), current_time('timestamp'));
+                    $next_check = human_time_diff(current_time('timestamp', true), wp_next_scheduled(GENERAL_SERVICE_APP_REFRESH));
                     ?>
                 <p>
                     Your feed was last updated
                     <code><?php echo $time_diff ?></code> ago and contains
                     <code><?php echo count($options['stories']); ?></code> stories.
+                </p>
+                <p>
+                    Your next scheduled update is in <code><?php echo $next_check ?></code>.
                 </p>
                 <p>Your selected entity is:</p>
             <?php } ?>
@@ -42,7 +46,7 @@ add_action('admin_menu', function () {
                     <?php } ?>
                 </select>
                 <input type="hidden" name="action" value="<?php echo esc_attr(GENERAL_SERVICE_APP_SLUG) ?>">
-                <input type="submit" value="<?php echo $new ? 'Save' : 'Refresh' ?>" class="button button-primary"
+                <input type="submit" value="<?php echo $new ? 'Save' : 'Refresh now' ?>" class="button button-primary"
                     style="margin:0 0 0 6px;">
             </form>
             <script>
