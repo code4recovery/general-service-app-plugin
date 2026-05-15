@@ -4,16 +4,17 @@
  * Description: Displays a news feed from the General Service App.
  * Author: General Service App
  * Author URI: https://generalservice.app
- * Version: 1.1.1
+ * Version: 1.1.2
  */
 
 const GENERAL_SERVICE_APP_LANGUAGES = ['en', 'es', 'fr'];
 const GENERAL_SERVICE_APP_NONCE = 'general_service_app_nonce';
 const GENERAL_SERVICE_APP_OPTIONS_KEY = 'general_service_app_options';
 const GENERAL_SERVICE_APP_REFRESH = 'general_service_app_refresh';
+const GENERAL_SERVICE_APP_SHORTCODE = 'general_service_app';
 const GENERAL_SERVICE_APP_SLUG = 'general-service-app-plugin';
 const GENERAL_SERVICE_APP_URL = 'https://generalservice.app';
-const GENERAL_SERVICE_APP_VERSION = '1.1.1';
+const GENERAL_SERVICE_APP_VERSION = '1.1.2';
 
 require_once plugin_dir_path(__FILE__) . 'functions/refresh.php';
 require_once plugin_dir_path(__FILE__) . 'functions/save.php';

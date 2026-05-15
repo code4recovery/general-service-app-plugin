@@ -1,6 +1,13 @@
 <?php
 
-add_shortcode('general_service_app', function ($atts) {
+add_action('wp_enqueue_scripts', function () {
+    global $post;
+    if (is_a($post, 'WP_Post') && has_shortcode($post->post_content, GENERAL_SERVICE_APP_SHORTCODE)) {
+        wp_enqueue_style(GENERAL_SERVICE_APP_SLUG, plugins_url('general-service-app.css', dirname(__FILE__)), [], GENERAL_SERVICE_APP_VERSION);
+    }
+});
+
+add_shortcode(GENERAL_SERVICE_APP_SHORTCODE, function ($atts) {
 
     $atts = shortcode_atts([
         'language' => GENERAL_SERVICE_APP_LANGUAGES[0],
@@ -37,8 +44,6 @@ add_shortcode('general_service_app', function ($atts) {
             $output .= "<h2>$type</h2>" . implode('', $stories);
         }
     }
-
-    wp_enqueue_style(GENERAL_SERVICE_APP_SLUG, plugins_url('general-service-app.css', dirname(__FILE__)), [], GENERAL_SERVICE_APP_VERSION);
 
     return '<section id="general-service-app">' . $output . '</section>';
 });
