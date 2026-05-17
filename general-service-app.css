@@ -1,4 +1,4 @@
-#general-service-app {
+section#general-service-app {
   display: flex;
   flex-direction: column;
   font-size: 16px;
@@ -13,10 +13,12 @@
     font-family: ui-sans-serif, system-ui, sans-serif;
     font-size: 28px;
     font-weight: bolder;
-    margin: 0;
+    margin: 0 !important;
   }
 
-  article {
+  > article {
+    border: 0 !important;
+    margin: 0 !important;
     padding: 0 0 16px 16px;
     position: relative;
 
