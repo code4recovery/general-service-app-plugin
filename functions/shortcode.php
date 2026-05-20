@@ -34,7 +34,7 @@ add_shortcode(GENERAL_SERVICE_APP_SHORTCODE, function ($atts) {
         $stories = array_map(
             fn($story) => '<article>
             <h3>' . $story['title'] . '</h3>' .
-            implode('', array_map(fn($paragraph) => '<p>' . $paragraph . '</p>', explode("\n\n", $story['description'])))
+            implode('', array_map(fn($paragraph) => '<p>' . $paragraph . '</p>', array_filter(explode("\n", $story['description']))))
             . general_service_app_buttons($story['buttons']) . '
             </article>',
             array_filter($option['stories'], fn($story) => $story['language'] === $language && $story['type'] === $key)
